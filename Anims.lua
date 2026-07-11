@@ -463,6 +463,15 @@ if isR15() then
                 climb = "http://www.roblox.com/asset/?id=110061716873830",
                 fall  = "http://www.roblox.com/asset/?id=132095139090357"
             },
+            ["Flying Aura"] = {
+                idle1 = "http://www.roblox.com/asset/?id=122426844584505",
+                idle2 = "http://www.roblox.com/asset/?id=122426844584505",
+                walk  = "http://www.roblox.com/asset/?id=83077254246622",
+                run   = "http://www.roblox.com/asset/?id=77053251062908",
+                jump  = "http://www.roblox.com/asset/?id=125422018244301",
+                climb = "http://www.roblox.com/asset/?id=95973965948476",
+                fall  = "http://www.roblox.com/asset/?id=109790195947848"
+            },
         }
 
         local animMap = {
@@ -483,7 +492,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy"
+            "Oldschool", "Spider", "Joy", "Flying Aura"
         }
 
         local runAnimOptions = {
@@ -495,7 +504,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy"
+            "Oldschool", "Spider", "Joy", "Flying Aura"
         }
 
         local function saveOriginalAnimations(character)
