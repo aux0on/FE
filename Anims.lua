@@ -67,7 +67,9 @@ if isR15() then
     do
         local feAnimSection = shared.AddSection("FE Animations")
         local FEAnimMaid = Maid.new()
-        RootMaid:GiveTask(FEAnimMaid)
+        RootMaid:GiveTask(function()
+            FEAnimMaid:DoCleaning()
+        end)
 
         local feAnimEnabled = false
         local animState = {all="Default", idle="Default", walk="Default", run="Default", jump="Default", climb="Default", fall="Default"}
@@ -507,6 +509,39 @@ if isR15() then
             "Oldschool", "Spider", "Joy", "Flying Aura"
         }
 
+        -- Waits for the Animate script AND every folder/animation slot it needs
+        -- to exist, and briefly polls for AnimationId to be populated. This
+        -- prevents capturing incomplete/empty "original" animation data on
+        -- a fresh spawn (the old code only waited for the idle folder).
+        local function waitForAnimateReady(character, timeout)
+            timeout = timeout or 10
+            local startTime = os.clock()
+
+            local function timeLeft()
+                return math.max(timeout - (os.clock() - startTime), 0)
+            end
+
+            local Animate = character:WaitForChild("Animate", timeout)
+            if not Animate then return nil end
+
+            for _, info in pairs(animMap) do
+                local folder = Animate:WaitForChild(info.folder, timeLeft())
+                if not folder then return nil end
+
+                for _, slot in ipairs(info.slots) do
+                    local anim = folder:WaitForChild(slot.child, timeLeft())
+                    if not anim then return nil end
+
+                    local pollStart = os.clock()
+                    while anim.AnimationId == "" and (os.clock() - pollStart) < 1 do
+                        task.wait(0.05)
+                    end
+                end
+            end
+
+            return Animate
+        end
+
         local function saveOriginalAnimations(character)
             local Animate = character:FindFirstChild("Animate")
             if not Animate then return false end
@@ -634,14 +669,16 @@ if isR15() then
             local humanoid = character:WaitForChild("Humanoid", 10)
             if not humanoid then return end
 
-            local Animate = character:WaitForChild("Animate", 10)
+            -- Wait for the ENTIRE Animate script (all folders/slots), not
+            -- just idle, so we never capture partial/missing original data.
+            local Animate = waitForAnimateReady(character, 10)
             if not Animate then return end
 
-            local idle = Animate:WaitForChild("idle", 5)
-            if not idle then return end
-            idle:WaitForChild("Animation1", 5)
-
+            -- Fresh character: throw away any originals captured for a
+            -- previous character before recording this one's real defaults.
+            originalAnims = {}
             saveOriginalAnimations(character)
+
             applyAnimations()
 
             task.wait(0.5)
@@ -690,7 +727,17 @@ if isR15() then
                 feAnimCharConn:Disconnect()
                 feAnimCharConn = nil
             end
+
+            -- IMPORTANT: DoCleaning() permanently marks a Maid as
+            -- "_destroyed", after which GiveTask() silently disconnects
+            -- anything handed to it instead of storing it. Since this maid
+            -- gets reused every time the toggle is flipped on/off, we swap
+            -- in a brand new Maid here so future GiveTask calls (made when
+            -- the toggle is re-enabled) actually work. Without this, turning
+            -- the toggle off then back on once would permanently break
+            -- re-application of animations on future respawns.
             FEAnimMaid:DoCleaning()
+            FEAnimMaid = Maid.new()
 
             animState.all   = "Default"
             animState.idle  = "Default"
