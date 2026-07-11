@@ -408,7 +408,61 @@ if isR15() then
                 jump  = "http://www.roblox.com/asset/?id=78163261581163",
                 climb = "http://www.roblox.com/asset/?id=87772134905508",
                 fall  = "http://www.roblox.com/asset/?id=110073924253388"
-            }
+            },
+            ["Bike/Bicyclist"] = {
+                idle1 = "http://www.roblox.com/asset/?id=126390120399173",
+                idle2 = "http://www.roblox.com/asset/?id=136791517336633",
+                walk  = "http://www.roblox.com/asset/?id=98707881660541",
+                run   = "http://www.roblox.com/asset/?id=102775737211919",
+                jump  = "http://www.roblox.com/asset/?id=129144847881258",
+                climb = "http://www.roblox.com/asset/?id=88267082364595",
+                fall  = "http://www.roblox.com/asset/?id=110684787086498"
+            },
+            ["Animal"] = {
+                idle1 = "http://www.roblox.com/asset/?id=128838183008466",
+                idle2 = "http://www.roblox.com/asset/?id=99689776099970",
+                walk  = "http://www.roblox.com/asset/?id=112238064449133",
+                run   = "http://www.roblox.com/asset/?id=97412731442167",
+                jump  = "http://www.roblox.com/asset/?id=123565665274439",
+                climb = "http://www.roblox.com/asset/?id=75085836535654",
+                fall  = "http://www.roblox.com/asset/?id=124705831982259"
+            },
+            ["It-Girl Essential Model"] = {
+                idle1 = "http://www.roblox.com/asset/?id=132232079260125",
+                idle2 = "http://www.roblox.com/asset/?id=102440789796215",
+                walk  = "http://www.roblox.com/asset/?id=86579666661215",
+                run   = "http://www.roblox.com/asset/?id=83336349930143",
+                jump  = "http://www.roblox.com/asset/?id=103382156539106",
+                climb = "http://www.roblox.com/asset/?id=77385815954046",
+                fall  = "http://www.roblox.com/asset/?id=127262648208409"
+            },
+            ["Oldschool"] = {
+                idle1 = "http://www.roblox.com/asset/?id=10921230744",
+                idle2 = "http://www.roblox.com/asset/?id=10921232093",
+                walk  = "http://www.roblox.com/asset/?id=10921244891",
+                run   = "http://www.roblox.com/asset/?id=10921240218",
+                jump  = "http://www.roblox.com/asset/?id=10921242013",
+                climb = "http://www.roblox.com/asset/?id=10921229866",
+                fall  = "http://www.roblox.com/asset/?id=10921241244"
+            },
+            ["Spider"] = {
+                idle1 = "http://www.roblox.com/asset/?id=112316814377814",
+                idle2 = "http://www.roblox.com/asset/?id=103439018552145",
+                walk  = "http://www.roblox.com/asset/?id=109976439277879",
+                run   = "http://www.roblox.com/asset/?id=119985832593347",
+                jump  = "http://www.roblox.com/asset/?id=87979233462906",
+                climb = "http://www.roblox.com/asset/?id=119278342251995",
+                fall  = "http://www.roblox.com/asset/?id=71112238570777"
+            },
+            ["Joy"] = {
+                idle1 = "http://www.roblox.com/asset/?id=119957475250242",
+                idle2 = "http://www.roblox.com/asset/?id=101200477339169",
+                walk  = "http://www.roblox.com/asset/?id=112597572150963",
+                run   = "http://www.roblox.com/asset/?id=96521659811743",
+                jump  = "http://www.roblox.com/asset/?id=82500357520736",
+                climb = "http://www.roblox.com/asset/?id=110061716873830",
+                fall  = "http://www.roblox.com/asset/?id=132095139090357"
+            },
         }
 
         local animMap = {
@@ -427,7 +481,9 @@ if isR15() then
             "Princess", "Cowboy", "Patrol", "Zombie FE", "Catwalk Glam", "Amazon Unboxed",
             "Glow Motion", "Bubbly", "Adidas Comm", "KATSEYE", "Wicked Popular",
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
-            "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model"
+            "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
+            "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
+            "Oldschool", "Spider", "Joy"
         }
 
         local runAnimOptions = {
@@ -437,7 +493,9 @@ if isR15() then
             "Princess", "Cowboy", "Patrol", "Zombie FE", "Catwalk Glam", "Amazon Unboxed",
             "Glow Motion", "Bubbly", "Adidas Comm", "KATSEYE", "Wicked Popular",
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
-            "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model"
+            "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
+            "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
+            "Oldschool", "Spider", "Joy"
         }
 
         local function saveOriginalAnimations(character)
@@ -474,17 +532,28 @@ if isR15() then
             local Animate = character:FindFirstChild("Animate")
             if not Animate then return end
 
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+
             stopAllAnimations()
             Animate.Disabled = true
             task.wait(0.1)
 
-            for _, info in pairs(animMap) do
+            for animType, info in pairs(animMap) do
                 local folder = Animate:FindFirstChild(info.folder)
                 if folder then
                     for _, slot in ipairs(info.slots) do
                         local anim = folder:FindFirstChild(slot.child)
                         if anim and originalAnims[slot.origKey] then
                             anim.AnimationId = originalAnims[slot.origKey]
+
+                            if (animType == "jump" or animType == "fall") and animator then
+                                for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                                    if track.Animation and track.Animation.AnimationId == anim.AnimationId then
+                                        track:Stop(0)
+                                    end
+                                end
+                            end
                         end
                     end
                 end
@@ -507,6 +576,9 @@ if isR15() then
             local Animate = character:FindFirstChild("Animate")
             if not Animate then return end
 
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+
             stopAllAnimations()
             Animate.Disabled = true
             task.wait(0.1)
@@ -520,12 +592,23 @@ if isR15() then
                     for _, slot in ipairs(info.slots) do
                         local anim = folder:FindFirstChild(slot.child)
                         if anim then
+                            local newId
                             if presetName == "Default" then
-                                if originalAnims[slot.origKey] then
-                                    anim.AnimationId = originalAnims[slot.origKey]
-                                end
+                                newId = originalAnims[slot.origKey]
                             elseif preset and preset[slot.origKey] then
-                                anim.AnimationId = preset[slot.origKey]
+                                newId = preset[slot.origKey]
+                            end
+
+                            if newId then
+                                anim.AnimationId = newId
+
+                                if (animType == "jump" or animType == "fall") and animator then
+                                    for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                                        if track.Animation and track.Animation.AnimationId == anim.AnimationId then
+                                            track:Stop(0)
+                                        end
+                                    end
+                                end
                             end
                         end
                     end
@@ -536,33 +619,58 @@ if isR15() then
         end
 
         local feAnimCharConn = nil
+        local feAnimDiedConn = nil
+
+        local function applyOnSpawn(character)
+            local humanoid = character:WaitForChild("Humanoid", 10)
+            if not humanoid then return end
+
+            local Animate = character:WaitForChild("Animate", 10)
+            if not Animate then return end
+
+            local idle = Animate:WaitForChild("idle", 5)
+            if not idle then return end
+            idle:WaitForChild("Animation1", 5)
+
+            saveOriginalAnimations(character)
+            applyAnimations()
+
+            task.wait(0.5)
+            if feAnimEnabled then
+                applyAnimations()
+            end
+
+            if feAnimDiedConn then
+                feAnimDiedConn:Disconnect()
+                feAnimDiedConn = nil
+            end
+
+            feAnimDiedConn = humanoid.Died:Connect(function()
+                if feAnimDiedConn then
+                    feAnimDiedConn:Disconnect()
+                    feAnimDiedConn = nil
+                end
+            end)
+
+            FEAnimMaid:GiveTask(feAnimDiedConn)
+        end
 
         local function enableFEAnims()
             if feAnimCharConn then
                 feAnimCharConn:Disconnect()
                 feAnimCharConn = nil
             end
+            if feAnimDiedConn then
+                feAnimDiedConn:Disconnect()
+                feAnimDiedConn = nil
+            end
 
             if LocalPlayer.Character then
-                saveOriginalAnimations(LocalPlayer.Character)
-                applyAnimations()
+                task.spawn(applyOnSpawn, LocalPlayer.Character)
             end
 
             feAnimCharConn = LocalPlayer.CharacterAdded:Connect(function(character)
-                local success = character:WaitForChild("Humanoid", 10) ~= nil
-                if not success then return end
-
-                local Animate = character:WaitForChild("Animate", 10)
-                if not Animate then return end
-
-                local idle = Animate:WaitForChild("idle", 5)
-                if idle then
-                    local anim1 = idle:WaitForChild("Animation1", 3)
-                    if anim1 then
-                        saveOriginalAnimations(character)
-                        applyAnimations()
-                    end
-                end
+                task.spawn(applyOnSpawn, character)
             end)
 
             FEAnimMaid:GiveTask(feAnimCharConn)
