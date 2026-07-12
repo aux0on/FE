@@ -474,6 +474,36 @@ if isR15() then
                 climb = "http://www.roblox.com/asset/?id=95973965948476",
                 fall  = "http://www.roblox.com/asset/?id=109790195947848"
             },
+                        
+            ["FHA V2"] = {
+                idle1 = "http://www.roblox.com/asset/?id=77320840005481",
+                idle2 = "http://www.roblox.com/asset/?id=77320840005481",
+                walk  = "http://www.roblox.com/asset/?id=134493251445479",
+                run   = "http://www.roblox.com/asset/?id=122214533401932",
+                jump  = "http://www.roblox.com/asset/?id=80078165493816",
+                climb = "http://www.roblox.com/asset/?id=114562994724647",
+                fall  = "http://www.roblox.com/asset/?id=98383265864436"
+            },
+           
+            ["Silent Nurse"] = {
+                idle1 = "http://www.roblox.com/asset/?id=111047244862844",
+                idle2 = "http://www.roblox.com/asset/?id=111047244862844",
+                walk  = "http://www.roblox.com/asset/?id=94196382152901",
+                run   = "http://www.roblox.com/asset/?id=94196382152901",
+                jump  = "http://www.roblox.com/asset/?id=106098057235980",
+                climb = "http://www.roblox.com/asset/?id=108985375609705",
+                fall  = "http://www.roblox.com/asset/?id=131579609334755"
+            },
+
+            ["Supermodel"] = {
+                idle1 = "http://www.roblox.com/asset/?id=91917730726110",
+                idle2 = "http://www.roblox.com/asset/?id=91917730726110",
+                walk  = "http://www.roblox.com/asset/?id=90320132970213",
+                run   = "http://www.roblox.com/asset/?id=112051258179255",
+                jump  = "http://www.roblox.com/asset/?id=91931403363860",
+                climb = "http://www.roblox.com/asset/?id=82728029306069",
+                fall  = "http://www.roblox.com/asset/?id=119173466228299"
+            },
         }
 
         local animMap = {
@@ -494,7 +524,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy", "Flying Aura"
+            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel"
         }
 
         local runAnimOptions = {
@@ -506,7 +536,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy", "Flying Aura"
+            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel"
         }
 
         -- Waits for the Animate script AND every folder/animation slot it needs
