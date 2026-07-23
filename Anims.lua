@@ -534,6 +534,15 @@ if isR15() then
                 climb = "http://www.roblox.com/asset/?id=70966616077778",
                 fall  = "http://www.roblox.com/asset/?id=136118518255777"
             },
+            ["R6 Converter"] = {
+                idle1 = "http://www.roblox.com/asset/?id=90040240627854",
+                idle2 = "http://www.roblox.com/asset/?id=90040240627854",
+                walk  = "http://www.roblox.com/asset/?id=92149852708428",
+                run   = "http://www.roblox.com/asset/?id=72259383092959",
+                jump  = "http://www.roblox.com/asset/?id=130519980521511",
+                climb = "http://www.roblox.com/asset/?id=70966616077778",
+                fall  = "http://www.roblox.com/asset/?id=130011792193300"
+            },
         }
 
         local animMap = {
@@ -554,7 +563,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel", "Enchanted Fairy", "Furry", "Vlada Model"
+            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel", "Enchanted Fairy", "Furry", "Vlada Model", "R6 Converter"
         }
 
         local runAnimOptions = {
@@ -566,7 +575,7 @@ if isR15() then
             "Dizzy", "WDTL", "Billie Eilish", "Cute Bouncy", "Cute",
             "Jolly", "Cute Kawaii", "Doll 3.0", "Victoria Model",
             "Bike/Bicyclist", "Animal", "It-Girl Essential Model",
-            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel", "Enchanted Fairy", "Furry", "Vlada Model"
+            "Oldschool", "Spider", "Joy", "Flying Aura", "FHA V2", "Silent Nurse", "Supermodel", "Enchanted Fairy", "Furry", "Vlada Model", "R6 Converter"
         }
 
         -- Waits for the Animate script AND every folder/animation slot it needs
