@@ -540,7 +540,7 @@ if isR15() then
                 walk  = "http://www.roblox.com/asset/?id=92149852708428",
                 run   = "http://www.roblox.com/asset/?id=72259383092959",
                 jump  = "http://www.roblox.com/asset/?id=130519980521511",
-                climb = "http://www.roblox.com/asset/?id=70966616077778",
+                climb = "http://www.roblox.com/asset/?id=80369171706383",
                 fall  = "http://www.roblox.com/asset/?id=130011792193300"
             },
         }
