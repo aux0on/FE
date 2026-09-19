@@ -68,7 +68,9 @@ end
 
 if isR15() then
     do
-        local feAnimSection = shared.AddSection("FE Animations")
+        local feanims = shared.CreateTab("FE Animations", "/aux0on/FEAnimsIcon/refs/heads/main/Untitled163_20260919102247")
+
+local feAnimSection = feanims:AddSection("FE Animations")
         local FEAnimMaid = Maid.new()
         RootMaid:GiveTask(function()
             FEAnimMaid:DoCleaning()
